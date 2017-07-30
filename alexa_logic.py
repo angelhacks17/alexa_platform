@@ -4,12 +4,17 @@ import json
 import requests
 import time 
 import unidecode
+import requests
 
 app = Flask(__name__)
 ask = Ask(app, "/working")
 
 def get_question():
-	return "aite dope"
+	sess = requests.Session()
+	html = sess.get('https://angelhacks17-nihaleg.c9users.io/cuisine')
+	data = json.loads(html.content.decode("utf-8"))
+	
+	return "You seem pretty hungry. Should I buy you" + str(data.get("name")) + "for "+ str(data.get("basePrice"))+"."
 
 @app.route("/")
 def homepage():
@@ -17,7 +22,8 @@ def homepage():
 
 @ask.launch
 def start_skill():
-	welcome_message = "There is a Panda Express near you! Should I order it?"
+	lol = get_question()
+	welcome_message = lol
 	return question(welcome_message)
 
 @ask.intent("YesIntent")
