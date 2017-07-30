@@ -6,7 +6,7 @@ import time
 import unidecode
 
 app = Flask(__name__)
-ask = Ask(app, "/lol")
+ask = Ask(app, "/working")
 
 def get_question():
 	return "aite dope"
@@ -22,10 +22,12 @@ def start_skill():
 
 @ask.intent("YesIntent")
 def order_food():
-	 question = get_question()
-	 return statement(question)
+	 return statement("COOL")
 
 @ask.intent("NoIntent")
 def no_intent():
 	bye = "Okay good bye!"
 	return statement(bye)
+
+if __name__ == "__main__":
+	app.run(debug=True)
